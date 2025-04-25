@@ -1,3 +1,4 @@
+import './styles/index.css';
 // @todo: Темплейт карточки
 // Ищем в HTML элемент id="card-template"
 // и сохраняем содержимое (шаблон карточки) в переменной cardTemplate
