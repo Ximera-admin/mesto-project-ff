@@ -1,4 +1,4 @@
-require('./styles/index.css')
+import './styles/index.css'; // добавьте импорт главного файла стилей
 // @todo: Темплейт карточки
 // Ищем в HTML элемент id="card-template"
 // и сохраняем содержимое (шаблон карточки) в переменной cardTemplate
