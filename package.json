@@ -1,0 +1,27 @@
+{
+  "name": "mesto-project-ff",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Ximera-admin/mesto-project-ff#readme",
+  "bugs": {
+    "url": "https://github.com/Ximera-admin/mesto-project-ff/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ximera-admin/mesto-project-ff.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+"scripts": {
+  "build": "rm -rf dist && webpack --mode production",
+  "dev": "webpack serve --mode development --open"
+},
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.3",
+    "webpack": "^5.99.6",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^4.15.2"
+  }
+}
