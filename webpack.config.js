@@ -2,16 +2,16 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-
-// Для работы с __dirname в ES-модулях
-const __dirname = new URL('.', import.meta.url).pathname;
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default {
   entry: {
     main: './src/index.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'), // Путь должен быть правильным, без лишнего C:
     filename: 'main.js',
     publicPath: '',
   },
