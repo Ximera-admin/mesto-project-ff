@@ -1,5 +1,5 @@
 import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+import 'regenerator-runtime/runtime.js';
 import './styles/index.css';
 // @todo: Темплейт карточки
 // Ищем в HTML элемент id="card-template"

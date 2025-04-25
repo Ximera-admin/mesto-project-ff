@@ -1,11 +1,14 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-module.exports = {
+// Для работы с __dirname в ES-модулях
+const __dirname = new URL('.', import.meta.url).pathname;
+
+export default {
   entry: {
-    main: './src/index.js'
+    main: './src/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -17,13 +20,32 @@ module.exports = {
     static: path.resolve(__dirname, './dist'),
     open: true,
     compress: true,
-    port: 8080
+    port: 8080,
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+                targets: {
+                  edge: '17',
+                  ie: '11',
+                  firefox: '50',
+                  chrome: '64',
+                  safari: '11.1',
+                },
+                useBuiltIns: 'entry',
+                corejs: '3',
+              }],
+            ],
+            sourceType: 'module',
+          }
+        },
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
@@ -31,23 +53,19 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          },
-          'postcss-loader'
-        ]
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
-
-  ]
-}
+  ],
+};
