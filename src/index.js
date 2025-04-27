@@ -1,6 +1,6 @@
-import 'core-js/stable';
-import 'regenerator-runtime/runtime.js';
 import './styles/index.css';
+import './components/cards.js';
+import './components/modal.js';
 // @todo: Темплейт карточки
 // Ищем в HTML элемент id="card-template"
 // и сохраняем содержимое (шаблон карточки) в переменной cardTemplate
