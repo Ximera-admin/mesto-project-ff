@@ -7,6 +7,10 @@
   position: relative;
   box-sizing: border-box;
   padding: 34px 36px;
+  
+  /* Анимационные свойства */
+  transform: translateY(20px);
+  transition: transform 0.5s ease;
 }
 
 @media screen and (max-width: 568px) {

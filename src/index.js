@@ -1,84 +1,83 @@
+import { initialCards } from './components/cards.js';
+import { openModal, closeModal } from './components/modal.js';
+import { createCard, handleCardImageClick } from './components/card.js';
 import './styles/index.css';
-import './components/cards.js';
-import './components/modal.js';
-// @todo: Темплейт карточки
-// Ищем в HTML элемент id="card-template"
-// и сохраняем содержимое (шаблон карточки) в переменной cardTemplate
-const cardTemplate = document.querySelector("#card-template").content;
 
-// @todo: DOM узлы
-// Ищем HTML элемент с классом places__list 
-// и сохраняем в переменную cardList
-const cardList = document.querySelector(".places__list");
+// DOM элементы
+const editProfileButton = document.querySelector('.profile__edit-button');
+const addCardButton = document.querySelector('.profile__add-button');
+const profileTitle = document.querySelector('.profile__title');
+const profileDescription = document.querySelector('.profile__description');
+const cardList = document.querySelector('.places__list');
 
-// @todo: Функция создания карточки
-// Объявляем и сохраняем в переменную createCard функцию, 
-// используя стрелочную функцию
-// и извлекаем нужные поля (название, ссылка) в аргументах.
-// Вторым параметром функции будет функция-обработчик, 
-// которую мы передаём для удаления карточки.
-// Она будет вызвана при клике по иконке корзины
-const createCard = ({ name, link }, startDelete) => {
+// Попапы
+const editProfilePopup = document.querySelector('.popup_type_edit');
+const addCardPopup = document.querySelector('.popup_type_new-card');
 
-  // Сохраним в переменную cardItem копию карточки, созданную из шаблона.
-  // Покопаемся в переменной cardTemplate и найдём нужный нам элемент <li>.
-  // Скопируем этот DOM элемент со всем содержимым
-  const cardItem = cardTemplate.querySelector(".places__item").cloneNode(true);
+// Формы
+const editForm = editProfilePopup.querySelector('.popup__form');
+const addCardForm = addCardPopup.querySelector('.popup__form');
 
-  // Найдём в содержимом элемент с классом .card__image
-  // и сохраним его в переменной cardPic 
-  const cardPic = cardItem.querySelector(".card__image");
+// Обработчики открытия попапов
+editProfileButton.addEventListener('click', () => {
+  const nameInput = editForm.querySelector('.popup__input_type_name');
+  const jobInput = editForm.querySelector('.popup__input_type_description');
+  
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
+  
+  openModal(editProfilePopup);
+});
 
-  // Найдём в содержимом элемент с классом .card__title
-  // и сохраним его в переменной cardTitle 
-  const cardTitle = cardItem.querySelector(".card__title");
+addCardButton.addEventListener('click', () => {
+  openModal(addCardPopup);
+});
 
-  // Найдём в содержимом элемент с классом .card__delete-button
-  // и сохраним его в переменной deleteButton 
-  const deleteButton = cardItem.querySelector(".card__delete-button");
+// Обработчик формы редактирования профиля
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  
+  const nameInput = editForm.querySelector('.popup__input_type_name');
+  const jobInput = editForm.querySelector('.popup__input_type_description');
+  
+  profileTitle.textContent = nameInput.value;
+  profileDescription.textContent = jobInput.value;
+  
+  closeModal(editProfilePopup);
+}
 
-  // Установим текстовое содержимое элемента (в нашем случае название карточки)
-  cardTitle.textContent = name;
+// Обработчик формы добавления карточки
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+  
+  const nameInput = addCardForm.querySelector('.popup__input_type_card-name');
+  const linkInput = addCardForm.querySelector('.popup__input_type_url');
+  
+  const newCard = {
+    name: nameInput.value,
+    link: linkInput.value
+  };
+  
+  renderCard(newCard);
+  addCardForm.reset();
+  closeModal(addCardPopup);
+}
 
-  // Установим путь к изображению в HTML
-  cardPic.src = link;
+// Функция рендеринга карточки
+function renderCard(cardData) {
+  const cardElement = createCard(cardData, handleCardImageClick);
+  cardList.prepend(cardElement);
+}
 
-  // Установим альтернативный текст для картинки в HTML
-  cardPic.alt = name;
+// Инициализация карточек
+initialCards.forEach(card => renderCard(card));
 
-  // "Послушаем" найденную выше кнопку deleteButton и если на нее нажмут,
-  // вызовем функцию startDelete, передав ей в аргументах текущую карточку
-  deleteButton.addEventListener("click", () => startDelete(cardItem));
+// Навешиваем обработчики форм
+editForm.addEventListener('submit', handleEditFormSubmit);
+addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 
-  // Возвращаем полностью настроенный DOM-элемент карточки наружу из функции.
-  return cardItem;
-};
-
-// @todo: Функция удаления карточки
-// Создадим стрелочную функцию deleteCard, которая будет принимать один элемент (card) 
-// и будет удалять его из HTML, используя метод .remove()
-const deleteCard = (card) => {
-  card.remove();
-};
-
-// @todo: Вывести карточки на страницу
-// Создадим переменную и одновременно функцию renderInitialCards, которая
-// будет отображать начальные карточки на странице, принимая на вход
-// массив initialCards, объявленный в файле cards.js
-const renderInitialCards = (cards) => {
-
-  // Переберём все элементы массива по очереди и для каждого вызовем
-  // функцию createCard, передав ей текущий объект как переменную card
-  cards.forEach((card) => {
-
-    // Создадим переменную, в которой будет находиться полностью готовая карточка,
-    // используя выше написанную функцию createCard 
-    const cardElement = createCard(card, deleteCard);
-
-    // Добавим карточку в HTML используя метод .append
-    cardList.append(cardElement);
-  });
-};
-
-// Запустим отображение наших карточек, вызвав функуию renderInitialCards
-renderInitialCards(initialCards);
+// Навешиваем обработчики закрытия на все попапы
+document.querySelectorAll('.popup__close').forEach(button => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closeModal(popup));
+});
