@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ehlvg/mesto-project-ff.git"
+    "url": "git+https://github.com/ximera-admin/mesto-project-ff.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ehlvg/mesto-project-ff/issues"
+    "url": "https://github.com/ximera-admin/mesto-project-ff/issues"
   },
-  "homepage": "https://github.com/ehlvg/mesto-project-ff#readme",
+  "homepage": "https://github.com/ximera-admin/mesto-project-ff",
   "devDependencies": {
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",
