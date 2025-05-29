@@ -2,31 +2,30 @@
   "name": "mesto-project-ff",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/Ximera-admin/mesto-project-ff#readme",
-  "bugs": {
-    "url": "https://github.com/Ximera-admin/mesto-project-ff/issues"
+  "main": "src/scripts/index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "dev": "webpack serve --open",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ximera-admin/mesto-project-ff.git"
+    "url": "git+https://github.com/ehlvg/mesto-project-ff.git"
   },
-  "license": "ISC",
+  "keywords": [],
   "author": "",
-  "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack serve --mode development",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ehlvg/mesto-project-ff/issues"
   },
+  "homepage": "https://github.com/ehlvg/mesto-project-ff#readme",
   "devDependencies": {
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",
     "autoprefixer": "^10.4.21",
     "babel-loader": "^10.0.0",
     "clean-webpack-plugin": "^4.0.0",
-    "core-js": "^3.41.0",
     "css-loader": "^7.1.2",
     "cssnano": "^7.0.6",
     "gh-pages": "^6.3.0",
@@ -38,6 +37,6 @@
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
-    "regenerator-runtime": "^0.14.1"
+    "core-js": "^3.41.0"
   }
 }

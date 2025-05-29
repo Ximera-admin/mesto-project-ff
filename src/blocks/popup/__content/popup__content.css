@@ -1,16 +1,11 @@
 .popup__content {
   max-width: 430px;
   width: 100%;
-  min-height: 330px;
   background-color: #fff;
   border-radius: 10px;
   position: relative;
   box-sizing: border-box;
   padding: 34px 36px;
-  
-  /* Анимационные свойства */
-  transform: translateY(20px);
-  transition: transform 0.5s ease;
 }
 
 @media screen and (max-width: 568px) {
